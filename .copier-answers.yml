@@ -1,0 +1,19 @@
+# Changes here will be overwritten by Copier
+_commit: 5.3.0
+_src_path: https://github.com/DiamondLightSource/python-copier-template.git
+author_email: dominic.oram@diamond.ac.uk
+author_name: Dominic Oram
+component_lifecycle: experimental
+component_owner: group:default/bluesky
+component_type: service
+description: Monitors primarily DAQ things and informs beamline staff when they change
+distribution_name: daq-monitoring-service
+docker: true
+docs_type: README
+git_platform: github.com
+github_org: DiamondLightSource
+package_name: daq_monitoring_service
+pypi: false
+repo_name: daq-monitoring-service
+strict_typing: true
+type_checker: pyright

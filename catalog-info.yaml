@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: daq-monitoring-service
+  title: daq-monitoring-service
+  description: Monitors primarily DAQ things and informs beamline staff when they change
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/bluesky
