@@ -7,10 +7,10 @@ from typing import TypedDict, cast
 import requests
 
 KEYCLOAK_INSTANCE = (
-    "https://identity-test.diamond.ac.uk/realms/dls/protocol/openid-connect/token"
+    "https://identity.diamond.ac.uk/realms/dls/protocol/openid-connect/token"
 )
-# GRAPH_URL = "https://graph-nightly.diamond.ac.uk/graphql"
-GRAPH_URL = "https://ulims-dev.diamond.ac.uk/graphql"
+GRAPH_URL = "https://graph-nightly.diamond.ac.uk/graphql"
+# GRAPH_URL = "https://ulims-dev.diamond.ac.uk/graphql"
 
 SESSION_STATE_FILE = "./data/last_sessions_state.json"
 
@@ -68,12 +68,17 @@ def get_session_statuses(token: str) -> list[SessionEdge]:
         )
         response.raise_for_status()
         session_data = response.json()
-        sessions.extend(
-            cast(
-                list[SessionEdge],
-                session_data["data"]["instrumentByKey"]["instrumentSessions"]["edges"],
+        try:
+            sessions.extend(
+                cast(
+                    list[SessionEdge],
+                    session_data["data"]["instrumentByKey"]["instrumentSessions"][
+                        "edges"
+                    ],
+                )
             )
-        )
+        except (TypeError, KeyError):
+            print(f"Could not get session info: {session_data}")
 
     return sessions
 
@@ -84,6 +89,7 @@ def get_token():
         print("Looking for client token")
         id = os.getenv("CLIENT_ID")
         secret = os.getenv("CLIENT_SECRET")
+        print(id, secret)
         if id is None or secret is None:
             raise Exception(
                 "CLIENT_ID and CLIENT_SECRET must be set in environment variables"

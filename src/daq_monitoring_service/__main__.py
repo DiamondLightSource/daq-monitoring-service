@@ -16,6 +16,8 @@ def main(args: Sequence[str] | None = None) -> None:
     token = get_token()
     previous_queue_state = None
 
+    print("Starting DAQ Monitoring Service...")
+
     while True:
         monitor_session_statuses(token, send_slack_message)
         previous_queue_state = monitor_queue(previous_queue_state, send_slack_message)

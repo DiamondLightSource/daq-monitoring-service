@@ -8,31 +8,14 @@ def send_slack_message(message: str):
     if not webhook_url:
         raise Exception("Slack webhook needed in SLACK_WEBHOOK env variable")
 
-    payload = {
-        "blocks": [
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": f"{message}",
-                },
-            },
-            {
-                "type": "context",
-                "elements": [
-                    {
-                        "type": "mrkdwn",
-                        "text": (
-                            "Triggered by <https://github.com/DiamondLightSource/"
-                            "daq-monitoring-service%7CDAQ-monitoring-service>"
-                        ),
-                    }
-                ],
-            },
-        ]
-    }
     try:
-        response = requests.post(webhook_url, json=payload)
+        response = requests.post(
+            webhook_url,
+            json={
+                "message": f"{message}",
+                "sent_by_url": "https://github.com/DiamondLightSource/daq-monitoring-service%7CDAQ-monitoring-service",
+            },
+        )
         response.raise_for_status()
         print(f"Message sent to Slack {message}")
     except Exception as e:
