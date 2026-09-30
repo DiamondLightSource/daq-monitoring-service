@@ -1,8 +1,10 @@
 """Interface for ``python -m daq_monitoring_service``."""
 
+import argparse
 import time
 from collections.abc import Sequence
 
+from daq_monitoring_service import __version__
 from daq_monitoring_service.monitor_gql import get_token, monitor_session_statuses
 from daq_monitoring_service.monitor_queue import monitor_queue
 from daq_monitoring_service.notify_slack import send_slack_message
@@ -13,6 +15,10 @@ POLL_INTERVAL_SECONDS = 5
 
 
 def main(args: Sequence[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description="Monitor DAQ services")
+    parser.add_argument("--version", action="version", version=__version__)
+    parser.parse_args(args)
+
     token = get_token()
     previous_queue_state = None
 
