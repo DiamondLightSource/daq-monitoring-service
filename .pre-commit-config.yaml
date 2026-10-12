@@ -5,6 +5,8 @@ repos:
       - id: check-added-large-files
         exclude: ^uv.lock
       - id: check-yaml
+        # Helm templates contain Go directives and are only YAML after rendering.
+        exclude: ^helm/[^/]+/templates/.*\.ya?ml$
       - id: check-merge-conflict
       - id: end-of-file-fixer
 

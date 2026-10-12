@@ -13,7 +13,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 description = "Monitors primarily DAQ things and informs beamline staff when they change"
-dependencies = [] # Add project dependencies here, e.g. ["click", "numpy"]
+dependencies = [
+    "requests",
+] # Add project dependencies here, e.g. ["click", "numpy"]
 dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.md"
